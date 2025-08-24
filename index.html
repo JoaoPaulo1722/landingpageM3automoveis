@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>
+      M3 Automóveis – Qualidade e Procedência é aqui na M3 | Salto/SP
+    </title>
+    <meta
+      name="description"
+      content="M3 Automóveis em Salto/SP. Compra, venda, troca e financiamento. Qualidade e procedência. Atendimento de segunda a sábado."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="M3 Automóveis – Salto/SP" />
+    <meta
+      property="og:description"
+      content="Compra, venda, troca e financiamento. Qualidade e procedência é aqui na M3."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/img/logo/Logo.png" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Fonts (Google) -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" href="assets/img/ui/favicon.png" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header" id="topo">
+      <div class="container header__content">
+        <a href="#topo" class="brand" aria-label="Página inicial M3 Automóveis">
+          <img
+            src="assets/img/logo/Logo.png"
+            alt="Logo M3 Automóveis"
+            height="40"
+          />
+        </a>
+
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="nav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="nav" id="nav" aria-label="Navegação principal">
+          <a href="#sobre">Sobre</a>
+          <a href="#vitrine">Vitrine</a>
+          <a href="#clientes">Clientes Felizes</a>
+          <a href="#depoimentos">Depoimentos</a>
+          <a href="#localizacao">Localização</a>
+          <a href="#contato" class="btn btn--small">WhatsApp</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="hero" aria-label="Apresentação">
+      <picture>
+        <!-- Substitua a imagem abaixo por uma foto de capa -->
+        <img
+          src="assets/img/logo/Logo.PNG"
+          alt="Showroom da M3 Automóveis"
+          loading="eager"
+        />
+      </picture>
+      <div class="hero__overlay">
+        <div class="container hero__content">
+          <h1>M3 Automóveis</h1>
+          <p class="subtitle">
+            Qualidade e <strong>Procedência</strong> é aqui na M3.
+          </p>
+          <p class="subline">
+            Compra • Venda • Troca • Financia —
+            <span class="badge">Segunda a sábado</span>
+          </p>
+          <div class="cta-row">
+            <a href="#vitrine" class="btn">Ver veículos</a>
+            <a href="#" id="ctaHeroWhats" class="btn btn--outline"
+              >Falar no WhatsApp</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section class="features" id="sobre" aria-label="Diferenciais e serviços">
+      <div class="container">
+        <header class="section-header">
+          <h2>Nossos Diferenciais</h2>
+          <p>Transparência do primeiro contato à entrega do veículo.</p>
+        </header>
+
+        <div class="features__grid">
+          <article class="card">
+            <img
+              src="assets/img/ui/icone-check.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <h3>Veículos Inspecionados</h3>
+            <p>Procedência, laudo e histórico verificados.</p>
+          </article>
+          <article class="card">
+            <img
+              src="assets/img/ui/icone-money.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <h3>Financiamento na Hora</h3>
+            <p>Parcerias com os principais bancos.</p>
+          </article>
+          <article class="card">
+            <img
+              src="assets/img/ui/icone-exchange.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <h3>Troca com Troco</h3>
+            <p>Avaliação justa do seu usado.</p>
+          </article>
+          <article class="card">
+            <img
+              src="assets/img/ui/icone-shield.svg"
+              alt=""
+              aria-hidden="true"
+            />
+            <h3>Garantia & Documentação</h3>
+            <p>Entrega ágil com toda documentação em dia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VITRINE / CAROUSEL -->
+    <section class="showcase" id="vitrine" aria-label="Vitrine de veículos">
+      <div class="container">
+        <header class="section-header">
+          <h2>Vitrine</h2>
+          <p>Seleção de carros e motos disponíveis.</p>
+        </header>
+
+        <div class="carousel" id="carousel">
+          <!-- EXEMPLOS (duplique e troque as imagens/dados) -->
+          <div class="carousel__track">
+            <article
+              class="vehicle-card"
+              data-modelo="Chevrolet Equinox 2.0 Turbo"
+            >
+              <picture>
+                <img
+                  src="assets/img/vitrine/M3Carro04.png"
+                  alt="Chevrolet Equinox 2.0 Turbo"
+                  loading="lazy"
+                />
+              </picture>
+              <div class="vehicle-card__body">
+                <h3>Chevrolet Equinox 2.0 Turbo</h3>
+                <ul class="tags">
+                  <li>Ano 2019</li>
+                  <li>123.000 km</li>
+                  <li>Automático</li>
+                </ul>
+                <div class="actions">
+                  <button class="btn btn--ghost moreInfo">Detalhes</button>
+                  <a
+                    href="#"
+                    class="btn btn--primary whatsVehicle"
+                    target="_blank"
+                  >
+                    Quero este
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="vehicle-card"
+              data-modelo="Hyundai HB20 Comfort Plus"
+            >
+              <picture>
+                <img
+                  src="assets/img/vitrine/M3Carro01.png"
+                  alt="Hyundai HB20 Comfort Plus"
+                  loading="lazy"
+                />
+              </picture>
+              <div class="vehicle-card__body">
+                <h3>Hyundai HB20 Comfort Plus</h3>
+                <ul class="tags">
+                  <li>Ano 2018</li>
+                  <li>91.600 km</li>
+                  <li>Comfort Plus 1.0 Manual</li>
+                </ul>
+                <div class="actions">
+                  <button class="btn btn--ghost moreInfo">Detalhes</button>
+                  <a
+                    href="#"
+                    class="btn btn--primary whatsVehicle"
+                    target="_blank"
+                  >
+                    Quero este
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="vehicle-card" data-modelo="Hyundai HB20 1.0 Turbo">
+              <picture>
+                <img
+                  src="assets/img/vitrine/M3Carro02.png"
+                  alt="Hyundai HB20 1.0 Turbo"
+                  loading="lazy"
+                />
+              </picture>
+              <div class="vehicle-card__body">
+                <h3>Hyundai HB20 1.0 Turbo</h3>
+                <ul class="tags">
+                  <li>Ano 2022</li>
+                  <li>54.600 km</li>
+                  <li>1.0 Turbo Automático GDI</li>
+                </ul>
+                <div class="actions">
+                  <button class="btn btn--ghost moreInfo">Detalhes</button>
+                  <a
+                    href="#"
+                    class="btn btn--primary whatsVehicle"
+                    target="_blank"
+                  >
+                    Quero este
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="vehicle-card" data-modelo="Hyundai HB20 1.0 Turbo">
+              <picture>
+                <img
+                  src="assets/img/vitrine/M3Carro03.png"
+                  alt="Hyundai HB20 1.0 Turbo"
+                  loading="lazy"
+                />
+              </picture>
+              <div class="vehicle-card__body">
+                <h3>Hyundai HB20 1.0 Turbo</h3>
+                <ul class="tags">
+                  <li>Ano 2022</li>
+                  <li>45.500 km</li>
+                  <li>1.0 Turbo Manual Completo</li>
+                </ul>
+                <div class="actions">
+                  <button class="btn btn--ghost moreInfo">Detalhes</button>
+                  <a
+                    href="#"
+                    class="btn btn--primary whatsVehicle"
+                    target="_blank"
+                  >
+                    Quero este
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <button class="carousel__btn prev" aria-label="Anterior">
+            &#10094;
+          </button>
+          <button class="carousel__btn next" aria-label="Próximo">
+            &#10095;
+          </button>
+          <div
+            class="carousel__dots"
+            id="carouselDots"
+            role="tablist"
+            aria-label="Paginação da vitrine"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTES FELIZES (VÍDEOS) -->
+    <section
+      class="clients"
+      id="clientes"
+      aria-label="Clientes recebendo seus carros"
+    >
+      <div class="container">
+        <header class="section-header">
+          <h2>Clientes Felizes</h2>
+          <p>Alguns momentos de entrega aqui na M3.</p>
+        </header>
+
+        <div class="video-grid" id="videoGrid">
+          <article class="video-card" data-title="Parabéns, Sheila!">
+            <button
+              class="video-thumb openVideo"
+              data-orientation="vertical"
+              data-video="assets/videos/video01.mp4"
+              aria-label="Assistir: Parabéns, Sheila!"
+            >
+              <video
+                src="assets/videos/video01.mp4"
+                autoplay
+                loop
+                muted
+                playsinline
+              ></video>
+              <span class="play-icon" aria-hidden="true">▶</span>
+            </button>
+            <h3 class="video-title">Parabéns, Sheila!</h3>
+          </article>
+
+          <article class="video-card" data-title="Parabéns, Bruno!">
+            <button
+              class="video-thumb openVideo"
+              data-orientation="vertical"
+              data-video="assets/videos/video02.mp4"
+              aria-label="Assistir: Parabéns, Bruno!"
+            >
+              <video
+                src="assets/videos/video02.mp4"
+                autoplay
+                loop
+                muted
+                playsinline
+              ></video>
+              <span class="play-icon" aria-hidden="true">▶</span>
+            </button>
+            <h3 class="video-title">Parabéns, Bruno!</h3>
+          </article>
+          <!-- Duplique conforme necessário -->
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL DE VÍDEO -->
+    <div
+      class="modal"
+      id="videoModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="Player de vídeo"
+    >
+      <div class="modal__inner" role="document">
+        <button class="modal__close" id="closeModal" aria-label="Fechar">
+          ✕
+        </button>
+        <video id="modalVideo" controls playsinline preload="metadata"></video>
+        <div class="modal__actions">
+          <a href="#" id="ctaVideoWhats" class="btn btn--primary"
+            >Quero meu M3</a
+          >
+        </div>
+      </div>
+      <div class="modal__backdrop" id="modalBackdrop"></div>
+    </div>
+
+    <!-- DEPOIMENTOS (placeholder) -->
+    <section class="testimonials" id="depoimentos" aria-label="Depoimentos">
+      <div class="container">
+        <header class="section-header">
+          <h2>Depoimentos</h2>
+          <p>Em breve, avaliações reais dos nossos clientes.</p>
+        </header>
+        <div class="testimonials__grid">
+          <blockquote class="quote">
+            “Fui muito bem atendido e fechei negócio no mesmo dia.”
+            <cite>— Cliente da região</cite>
+          </blockquote>
+          <blockquote class="quote">
+            “Avaliaram meu usado com justiça e cuidaram da documentação.”
+            <cite>— Motorista satisfeito</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE A M3 -->
+    <section class="about">
+      <div class="container about__grid">
+        <div>
+          <h2>Sobre a M3</h2>
+          <p>
+            A M3 Automóveis, em Salto/SP, oferece veículos selecionados com
+            qualidade e procedência, além de soluções completas em compra,
+            venda, troca e financiamento. Nosso compromisso é um atendimento
+            transparente e ágil do primeiro contato até a entrega.
+          </p>
+          <a href="#" id="ctaAboutWhats" class="btn">Atendimento no WhatsApp</a>
+        </div>
+        <!-- <picture>
+          <img
+            src="assets/img/hero/loja.jpg"
+            alt="Equipe da M3 Automóveis"
+            loading="lazy"
+          />
+        </picture> -->
+      </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO -->
+    <section class="location" id="localizacao" aria-label="Como chegar">
+      <div class="container">
+        <header class="section-header">
+          <h2>Localização</h2>
+          <p>Rua Jose Galvao 220, Salto, São Paulo – 13320‑170</p>
+        </header>
+        <div class="map-wrap">
+          <!-- Google Maps Embed (público). Se quiser, substitua por URL com chave. -->
+          <iframe
+            title="Mapa M3 Automóveis"
+            src="https://www.google.com/maps?q=Rua%20Jose%20Galvao%20220,%20Salto,%20Sao%20Paulo%2013320170&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          >
+          </iframe>
+        </div>
+        <div class="map-actions">
+          <a
+            class="btn btn--outline"
+            target="_blank"
+            rel="noopener"
+            href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Jose%20Galvao%20220%2C%20Salto%2C%20Sao%20Paulo%2013320170"
+          >
+            Traçar rota
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO / CTA -->
+    <section class="contact" id="contato" aria-label="Contato">
+      <div class="container contact__grid">
+        <div>
+          <h2>Agende sua visita</h2>
+          <p>
+            Atendimento de segunda a sábado. Fale agora no WhatsApp e receba
+            condições para o seu próximo carro.
+          </p>
+          <a href="#" id="ctaFooterWhats" class="btn">Falar no WhatsApp</a>
+        </div>
+        <ul class="social">
+          <li>
+            <a
+              class="social-link"
+              target="_blank"
+              rel="noopener"
+              href="https://www.instagram.com/automoveis_m3"
+              aria-label="Instagram"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
+                ></path>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+      <div class="container footer__content">
+        <span>© <span id="year"></span> M3 Automóveis • Salto/SP</span>
+        <a href="#topo" class="backtop" aria-label="Voltar ao topo">↑</a>
+      </div>
+    </footer>
+
+    <!-- BOTÃO FLUTUANTE WHATSAPP -->
+    <a
+      href="#"
+      id="floatWhats"
+      class="float-whats"
+      aria-label="Abrir WhatsApp"
+      img
+      ><img src="./assets/img/ui/whatsappicon01.png" alt=""
+    /></a>
+
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>
