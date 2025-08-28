@@ -19,6 +19,7 @@ const $$ = (sel, el = document) => Array.from(el.querySelectorAll(sel));
 /* ============ HEADER / NAV ============ */
 const nav = $("#nav");
 const burger = $("#hamburger");
+
 burger?.addEventListener("click", () => {
   const expanded = burger.getAttribute("aria-expanded") === "true";
   burger.setAttribute("aria-expanded", String(!expanded));
@@ -39,7 +40,7 @@ $("#ctaAboutWhats")?.setAttribute("href", waLink(MSG_GERAL));
 $("#ctaFooterWhats")?.setAttribute("href", waLink(MSG_GERAL));
 $("#floatWhats")?.setAttribute("href", waLink(MSG_GERAL));
 
-/* Prepara o link 'Quero este' com o modelo na mensagem */
+/* Prepara o link 'Quero este' com o modelo na mensagem (target _blank) */
 $$(".vehicle-card .whatsVehicle").forEach((link) => {
   const card = link.closest(".vehicle-card");
   const modelo = card?.dataset?.modelo || "veículo";
@@ -48,11 +49,77 @@ $$(".vehicle-card .whatsVehicle").forEach((link) => {
   link.setAttribute("target", "_blank");
   link.setAttribute("rel", "noopener");
 
-  // Reforço: evita que o clique borbulhe para o trilho do carrossel
+  // Evita que o clique borbulhe para o trilho do carrossel
   link.addEventListener("click", (event) => {
     event.stopPropagation();
   });
 });
+
+/* ============ SMOOTH SCROLL (cross-browser + offset do header) ============ */
+(function smoothAnchors() {
+  const header = document.querySelector(".header");
+
+  // Easing: easeInOutCubic
+  function ease(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function animateScrollTo(targetY, duration = 600) {
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+      const y = startY + distance * ease(t);
+      window.scrollTo(0, y);
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function getHeaderOffset() {
+    return header ? header.offsetHeight : 80; // fallback
+  }
+
+  function scrollToHash(hash) {
+    const el = document.querySelector(hash);
+    if (!el) return;
+    const y =
+      el.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+    animateScrollTo(y, 650);
+  }
+
+  // Delegação para todos os links internos
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+
+    const href = a.getAttribute("href");
+    if (!href || href === "#") return; // ignora âncoras vazias
+
+    // Se o alvo existe, fazemos nós o scroll e cancelamos o padrão
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      scrollToHash(href);
+
+      // Fecha menu mobile se estiver aberto
+      const nav = document.getElementById("nav");
+      const burger = document.getElementById("hamburger");
+      nav?.classList.remove("show");
+      burger?.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Se a página abrir já com hash (ex: m3.com/#vitrine), aplica offset também
+  window.addEventListener("load", () => {
+    if (location.hash) {
+      setTimeout(() => scrollToHash(location.hash), 0);
+    }
+  });
+})();
 
 /* ============ VITRINE: CARROSSEL OTIMIZADO ============ */
 (function initCarousel() {
@@ -64,17 +131,10 @@ $$(".vehicle-card .whatsVehicle").forEach((link) => {
   const next = $(".carousel__btn.next", root);
   const dotsWrap = $("#carouselDots");
   const cards = $$(".vehicle-card", track);
-  if (cards.length === 0) return;
+  if (!track || !dotsWrap || cards.length === 0) return;
 
-  const GAP = 22; // Mesmo valor do gap no CSS
+  const GAP = 22; // mesmo valor do gap no CSS
   let index = 0;
-
-  // Atualiza os dots de navegação
-  const updateDots = () => {
-    $$("#carouselDots button").forEach((d, i) =>
-      d.setAttribute("aria-selected", String(i === index))
-    );
-  };
 
   // Constrói os dots (1 por card)
   dotsWrap.innerHTML = "";
@@ -85,7 +145,12 @@ $$(".vehicle-card .whatsVehicle").forEach((link) => {
     dotsWrap.appendChild(b);
   });
 
-  // Navega para o card de índice 'i'
+  const updateDots = () => {
+    $$("#carouselDots button").forEach((d, i) =>
+      d.setAttribute("aria-selected", String(i === index))
+    );
+  };
+
   const goTo = (i) => {
     index = Math.max(0, Math.min(i, cards.length - 1));
     const cardWidth = cards[0].offsetWidth;
@@ -107,11 +172,11 @@ $$(".vehicle-card .whatsVehicle").forEach((link) => {
     }
   });
 
-  // Inicializa o estado dos dots
+  // Inicializa estado
   updateDots();
 })();
 
-/* ============ MODAL DE VÍDEO ============ */
+/* ============ MODAL DE VÍDEO (Clientes Felizes) ============ */
 const modal = $("#videoModal");
 const modalInner = $(".modal__inner");
 const modalVideo = $("#modalVideo");
@@ -119,19 +184,19 @@ const closeModalBtn = $("#closeModal");
 const backdrop = $("#modalBackdrop");
 const ctaVideoWhats = $("#ctaVideoWhats");
 
-// Abre modal e adapta largura para vídeos 9:16
 function openModal(src, poster, title, isVertical = false) {
-  // ajusta o container para vertical
+  if (!modal || !modalInner || !modalVideo) return;
+
   modalInner.classList.toggle("is-vertical", !!isVertical);
 
   // carrega o vídeo sob demanda
   modalVideo.src = src;
   if (poster) modalVideo.setAttribute("poster", poster);
-  modalVideo.muted = true;
+  modalVideo.muted = true; // para garantir autoplay no mobile
   modalVideo.play().catch(() => {});
 
   // CTA
-  ctaVideoWhats.setAttribute("href", waLink(`${MSG_VIDEO} (Vídeo: ${title})`));
+  ctaVideoWhats?.setAttribute("href", waLink(`${MSG_VIDEO} (Vídeo: ${title})`));
 
   // exibe modal
   modal.classList.add("show");
@@ -139,16 +204,20 @@ function openModal(src, poster, title, isVertical = false) {
 }
 
 function closeModal() {
+  if (!modal || !modalVideo || !modalInner) return;
+
   modal.classList.remove("show");
   modal.setAttribute("aria-hidden", "true");
+
   modalVideo.pause();
   modalVideo.removeAttribute("src");
   modalVideo.removeAttribute("poster");
   modalVideo.load();
+
   modalInner.classList.remove("is-vertical");
 }
 
-// Abre a partir dos cards
+// Abertura a partir dos cards .openVideo
 $$(".openVideo").forEach((btn) => {
   btn.addEventListener("click", (e) => {
     const el = e.currentTarget;
@@ -195,8 +264,69 @@ $$(".moreInfo").forEach((btn) => {
   });
 });
 
-/* Voltar ao topo (footer) */
-$(".backtop")?.addEventListener("click", (e) => {
+/* ============ HERO: vídeo à direita (autoplay mudo, unmute, sem loop) ============ */
+(function setupHeroVideo() {
+  const heroVideo = document.getElementById("heroVideo");
+  const heroUnmute = document.getElementById("heroUnmute");
+  if (!heroVideo) return;
+
+  // Garante atributos que ajudam no autoplay e no iOS
+  heroVideo.setAttribute("playsinline", "");
+  heroVideo.playsInline = true;
+  heroVideo.loop = false;
+  heroVideo.muted = true; // começa mudo para autoplay
+  heroVideo.autoplay = true;
+
+  // Tenta iniciar o autoplay mudo assim que possível
+  const tryPlayMuted = () => heroVideo.play().catch(() => {});
+  if (document.readyState === "complete") tryPlayMuted();
+  else window.addEventListener("load", tryPlayMuted);
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) tryPlayMuted();
+  });
+
+  // Função robusta para tocar COM SOM quando o usuário clica
+  const playWithSound = async () => {
+    try {
+      if (heroVideo.readyState < 2) heroVideo.load();
+      if (heroVideo.currentTime === 0) {
+        try {
+          heroVideo.currentTime = 0.001;
+        } catch {}
+      }
+      heroVideo.muted = false;
+      heroVideo.volume = 1;
+      await heroVideo.play();
+      heroUnmute?.classList.add("is-hidden");
+      heroVideo.removeAttribute("controls");
+    } catch (err) {
+      heroVideo.setAttribute("controls", "controls");
+      console.warn("Reprodução com som falhou:", err);
+    }
+  };
+
+  heroUnmute?.addEventListener("click", (e) => {
+    e.preventDefault();
+    playWithSound();
+  });
+  heroVideo.addEventListener("click", () => {
+    if (heroVideo.muted) playWithSound();
+  });
+
+  heroVideo.addEventListener("ended", () => {
+    // sem loop
+  });
+
+  heroVideo.addEventListener("error", () => {
+    heroVideo.setAttribute("controls", "controls");
+    console.warn("Erro no heroVideo:", heroVideo.error);
+  });
+})();
+
+/* ============ VOLTAR AO TOPO ============ */
+const backTop = $(".backtop");
+backTop?.addEventListener("click", (e) => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });

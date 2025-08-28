@@ -66,32 +66,57 @@
     </header>
 
     <!-- HERO -->
-    <section class="hero" id="hero" aria-label="Apresentação">
-      <picture>
-        <!-- Substitua a imagem abaixo por uma foto de capa -->
-        <img
-          src="assets/img/logo/Logo.PNG"
-          alt="Showroom da M3 Automóveis"
-          loading="eager"
-        />
-      </picture>
-      <div class="hero__overlay">
-        <div class="container hero__content">
+    <section class="hero" id="home">
+      <div class="hero__overlay"></div>
+
+      <div class="container hero__grid">
+        <!-- Coluna de texto (mantém seu conteúdo) -->
+        <div class="hero__copy">
           <h1>M3 Automóveis</h1>
-          <p class="subtitle">
-            Qualidade e <strong>Procedência</strong> é aqui na M3.
-          </p>
+          <p class="subtitle">Qualidade e <b>Procedência</b> é aqui na M3.</p>
           <p class="subline">
-            Compra • Venda • Troca • Financia —
-            <span class="badge">Segunda a sábado</span>
+            <span class="badge"
+              >Compra • Venda • Troca • Financia — <b>Segunda a sábado</b></span
+            >
           </p>
+
           <div class="cta-row">
-            <a href="#vitrine" class="btn">Ver veículos</a>
-            <a href="#" id="ctaHeroWhats" class="btn btn--outline"
+            <a href="#vitrine" class="btn btn--primary">Ver veículos</a>
+            <a
+              id="ctaHeroWhats"
+              class="btn btn--outline"
+              href="#"
+              target="_blank"
+              rel="noopener"
               >Falar no WhatsApp</a
             >
           </div>
         </div>
+
+        <!-- Coluna do vídeo (NOVIDADE) -->
+        <aside class="hero__media">
+          <video
+            id="heroVideo"
+            class="hero__video"
+            playsinline
+            muted
+            autoplay
+            preload="auto"
+            poster="assets/poster-hero.jpg"
+          >
+            <source src="assets/videos/Video03.mp4" type="video/mp4" />
+          </video>
+
+          <button
+            id="heroUnmute"
+            class="hero__unmute"
+            type="button"
+            aria-label="Assistir com som"
+          >
+            <span class="heroUnmute__dot"></span>
+            Assistir com som
+          </button>
+        </aside>
       </div>
     </section>
 
@@ -148,7 +173,7 @@
     <section class="showcase" id="vitrine" aria-label="Vitrine de veículos">
       <div class="container">
         <header class="section-header">
-          <h2>Vitrine</h2>
+          <h2>Estoque</h2>
           <p>Seleção de carros e motos disponíveis.</p>
         </header>
 
