@@ -55,40 +55,44 @@ $$(".vehicle-card .whatsVehicle").forEach((link) => {
   });
 });
 
-/* ============ SMOOTH SCROLL (cross-browser + offset do header) ============ */
+/* ============ SMOOTH SCROLL (mobile-friendly + header offset) ============ */
 (function smoothAnchors() {
   const header = document.querySelector(".header");
+  const scroller = document.scrollingElement || document.documentElement;
 
-  // Easing: easeInOutCubic
-  function ease(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
+  // Easing cubic
+  const ease = (t) =>
+    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-  function animateScrollTo(targetY, duration = 600) {
-    const startY = window.pageYOffset;
-    const distance = targetY - startY;
-    const startTime = performance.now();
+  function animateScrollTo(targetY, duration = 650) {
+    const startY = scroller.scrollTop;
+    const dist = targetY - startY;
+    const start = performance.now();
 
     function step(now) {
-      const elapsed = now - startTime;
-      const t = Math.min(1, elapsed / duration);
-      const y = startY + distance * ease(t);
-      window.scrollTo(0, y);
+      const t = Math.min(1, (now - start) / duration);
+      scroller.scrollTop = startY + dist * ease(t);
       if (t < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
 
-  function getHeaderOffset() {
-    return header ? header.offsetHeight : 80; // fallback
-  }
+  const headerOffset = () => (header ? header.offsetHeight : 0);
 
   function scrollToHash(hash) {
+    // Caso especial: voltar ao topo
+    if (hash === "#topo" || hash === "#home" || hash === "#") {
+      animateScrollTo(0, 650);
+      return;
+    }
+
     const el = document.querySelector(hash);
     if (!el) return;
+
     const y =
-      el.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
-    animateScrollTo(y, 650);
+      el.getBoundingClientRect().top + scroller.scrollTop - headerOffset();
+
+    animateScrollTo(Math.max(0, y), 650);
   }
 
   // Delegação para todos os links internos
@@ -97,25 +101,24 @@ $$(".vehicle-card .whatsVehicle").forEach((link) => {
     if (!a) return;
 
     const href = a.getAttribute("href");
-    if (!href || href === "#") return; // ignora âncoras vazias
+    if (!href) return;
 
-    // Se o alvo existe, fazemos nós o scroll e cancelamos o padrão
-    const target = document.querySelector(href);
-    if (target) {
+    // Se o alvo existir, nós controlamos a rolagem
+    if (href === "#topo" || document.querySelector(href)) {
       e.preventDefault();
       scrollToHash(href);
 
-      // Fecha menu mobile se estiver aberto
-      const nav = document.getElementById("nav");
-      const burger = document.getElementById("hamburger");
-      nav?.classList.remove("show");
-      burger?.setAttribute("aria-expanded", "false");
+      // Fecha o menu mobile, se aberto
+      document.getElementById("nav")?.classList.remove("show");
+      document
+        .getElementById("hamburger")
+        ?.setAttribute("aria-expanded", "false");
     }
   });
 
-  // Se a página abrir já com hash (ex: m3.com/#vitrine), aplica offset também
+  // Se a página abrir já com hash, aplica offset
   window.addEventListener("load", () => {
-    if (location.hash) {
+    if (location.hash && document.querySelector(location.hash)) {
       setTimeout(() => scrollToHash(location.hash), 0);
     }
   });
@@ -325,8 +328,8 @@ $$(".moreInfo").forEach((btn) => {
 })();
 
 /* ============ VOLTAR AO TOPO ============ */
-const backTop = $(".backtop");
-backTop?.addEventListener("click", (e) => {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+// const backTop = $(".backtop");
+// backTop?.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   window.scrollTo({ top: 0, behavior: "smooth" });
+// });
